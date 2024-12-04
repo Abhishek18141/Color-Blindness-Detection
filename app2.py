@@ -13,7 +13,7 @@ multi_model_path = 'svm_model_multi_U7.pkl'
 mlp_bin_model_path = 'mlp_model_bin_U7.pkl'
 mlp_multi_model_path = 'mlp_model_multi_U7.pkl'
 xgb_bin_model_path = 'xgb_model_bin_U7.json'
-xgb_multi_model_path = 'xgb_model_multi_U7.json'
+xgb_multi_model_path = 'xgb_model_multi_U7.pkl'  # Updated to PKL format
 
 # Load SVM models
 svm_model_bin = joblib.load(binary_model_path)
@@ -26,8 +26,7 @@ mlp_model_multi = joblib.load(mlp_multi_model_path)
 # Load XGBoost models
 xgb_model_bin = xgb.XGBClassifier()  # For binary classification
 xgb_model_bin.load_model(xgb_bin_model_path)
-xgb_model_multi = xgb.XGBClassifier()  # For multiclass classification
-xgb_model_multi.load_model(xgb_multi_model_path)
+xgb_model_multi = joblib.load(xgb_multi_model_path)  # Load multiclass model from PKL
 
 # Load the InceptionResNetV2 model
 IMG_SIZE = 299
@@ -69,11 +68,12 @@ if uploaded_file is not None:
         # Map binary predictions to categories
         binary_category_svm = "No DR" if binary_pred_svm[0] == 0 else "DR"
         binary_category_mlp = "No DR" if binary_pred_mlp[0] == 0 else "DR"
+        binary_category_xgb = "No DR" if binary_pred_xgb[0] == 0 else "DR"
 
         # Display binary predictions
         st.write(f"SVM Prediction (Binary): {binary_category_svm}")
         st.write(f"MLP Prediction (Binary): {binary_category_mlp}")
-        st.write(f"XGBoost Prediction (Binary): {binary_category_svm if binary_pred_xgb[0] == 1 else 'No DR'}")
+        st.write(f"XGBoost Prediction (Binary): {binary_category_xgb}")
 
     if st.button("Predict Multiclass"):
         # Make multiclass predictions
