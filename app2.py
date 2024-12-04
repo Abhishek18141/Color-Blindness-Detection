@@ -24,10 +24,14 @@ mlp_model_bin = joblib.load(mlp_bin_model_path)
 mlp_model_multi = joblib.load(mlp_multi_model_path)
 
 # Load XGBoost models
-xgb_model_bin = xgb.XGBClassifier()  # For binary classification
+xgb_model_bin = xgb.XGBClassifier()  # Binary classification
 xgb_model_bin.load_model(xgb_bin_model_path)
-xgb_model_multi = xgb.XGBClassifier()  # For multiclass classification
+
+xgb_model_multi = xgb.XGBClassifier()  # Multiclass classification
 xgb_model_multi.load_model(xgb_multi_model_path)
+
+# Manually set the number of classes for the multiclass model
+xgb_model_multi.n_classes_ = 3  # Adjust based on your dataset
 
 # Load the InceptionResNetV2 model
 IMG_SIZE = 299
