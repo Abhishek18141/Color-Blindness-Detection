@@ -1,7 +1,7 @@
 # Diabetic Retinopathy Classification App
 
 This project is a web-based application built using **Streamlit** to classify diabetic retinopathy using pre-trained machine learning models. The app supports both binary classification (No DR vs. DR) and multiclass classification (No DR, Mild Non-Proliferative DR, and Proliferative DR).
-
+**Live Demo**: https://color-blindness-detection.streamlit.app/
 ---
 
 ## Features
